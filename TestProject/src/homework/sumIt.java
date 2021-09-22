@@ -10,24 +10,22 @@ public class sumIt {
 	}  
 	  
 	public void sum() {  
-		System.out.println(one + two);
+		sum = one + two;
 	}  
 	 
 	public void print() {  
-		System.out.println();  
+		System.out.println(sum);  
 	}  
 	
 	public static void main(String[] args) {  
 		sumIt runner = new sumIt();  
-		
-		// should print out 12  
+		 
 		runner.setNums(5,  7);  
 		runner.sum();  
-		System.out.println();  
-		
-		// should print out 40  
+		runner.print();  
+		 
 		runner.setNums(13, 27);  
 		runner.sum();  
-		System.out.println();  
+		runner.print();  
 	}
 }
