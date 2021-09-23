@@ -1,6 +1,6 @@
 package homework;
 
-public class lineSlope {
+public class mathMethods {
 	private double x1, x2, y1, y2, slope;
 	
 	// use the parameters to assign your instance variables
@@ -24,7 +24,7 @@ public class lineSlope {
 			}
 			
 		public static void main(String[] args) {
-			lineSlope runner = new lineSlope();
+			mathMethods runner = new mathMethods();
 			// this line should have a slope of 2
 			runner.set_coordinates(3, 3, 7, 11);
 			runner.slope();
