@@ -2,8 +2,8 @@ package cw;
 
 public class Human{
 	 
-	public int age;
-	public char gender;
+	private int age;
+	private char gender;
 	
 	
 	public void setAge(int age){
