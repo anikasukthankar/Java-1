@@ -31,11 +31,11 @@ public class Pong extends JPanel implements KeyListener {
 	private int ballXSpeed = 3;
 	private int ballYSpeed = 5;
 	
-	private int paddle1XCoord = WIDTH/2;
+	private int paddle1XCoord = 0;
 	private int paddle1YCoord = HEIGHT/2;
 	private int paddle1YSpeed = 0;
 	
-	private int paddle2XCoord = WIDTH/2;
+	private int paddle2XCoord = 565;
 	private int paddle2YCoord = HEIGHT/2;
 	private int paddle2YSpeed = 0;
 	
