@@ -1,5 +1,7 @@
 //Anika Sukthankar
-//
+//October 15, 2021
+//Java I (Blue)
+//Mr. Friedman
 
 package projects;
 
@@ -19,11 +21,13 @@ import javax.swing.JPanel;
 
 
 //if paddles do not move, hit the restart button and press the corresponding keys
+//for some reason, if the ball passes thru the paddle (rarely) it will violently shake. Ignore this, since it does not affect the code, and hit the restart button.  
+	//I don't know how to fix it :(
 
 public class Pong extends JPanel implements KeyListener {
 	
 	// constants that are predefined and won't change as the program runs
-	private final int WIDTH = 800, HEIGHT = 600, WINDOW_HEIGHT = 650;
+	private final int WIDTH = 600, HEIGHT = 600, WINDOW_HEIGHT = 650;
 	private final int PADDLE_WIDTH = 20, DIAM = 8, PADDLE_HEIGHT = 100;
 	private final int PADDLE_SPEED = 4;
 
@@ -59,15 +63,18 @@ public class Pong extends JPanel implements KeyListener {
 	
 	// this method moves the paddles at each timestep
 	public void move_paddles() {
-		if (solo) {
 			
-			
-			if (paddle2YCoord >= 575) {
-				paddle2YSpeed = -1*PADDLE_SPEED;
-			}
-			if (paddle2YCoord <= 25) {
-				paddle2YSpeed = PADDLE_SPEED;
-			}
+			if (solo) {
+				if(ballYCoord>paddle2YCoord){
+					paddle2YSpeed=PADDLE_SPEED;
+				}
+				else
+				if(ballYCoord<paddle2YCoord){
+					paddle2YSpeed=-1*PADDLE_SPEED;
+				}
+				else{
+					paddle2YSpeed=0;
+				}
 		}
 		
 		paddle1YCoord += paddle1YSpeed;
@@ -92,6 +99,8 @@ public class Pong extends JPanel implements KeyListener {
 			}
 		}
 		
+		//if ball hits right wall, player 1 gets point and ball resets in middle of screen
+		// when players' combined scores is less than or equal to 5, the ball speeds up 
 		if (ballXCoord + DIAM > WIDTH) {
 			player1Score++;
 			ballXCoord = WIDTH/2;
@@ -102,32 +111,24 @@ public class Pong extends JPanel implements KeyListener {
 			}
 			
 		}
-				
+		
+		//if ball hits top or bottom wall, it bounces off
 		if (ballYCoord < 0 || ballYCoord + DIAM > HEIGHT) {
 			ballYSpeed *= -1;
 		}
 		
-		if (ballYCoord + DIAM > paddle1YCoord && ballYCoord < paddle1YCoord + PADDLE_HEIGHT && ballXCoord == paddle1XCoord + PADDLE_WIDTH) {
-			if (ballYCoord + DIAM == paddle1YCoord && ballXCoord < paddle1XCoord + PADDLE_WIDTH) {
-				ballYSpeed *= -1;
-			}
-			
-			else {
-			ballXSpeed *= -1;
-			}
-			
-		}
-		
-		if (ballYCoord + DIAM > paddle2YCoord && ballYCoord < paddle2YCoord + PADDLE_HEIGHT && ballXCoord + DIAM > paddle2XCoord) {
-			if (ballYCoord + DIAM == paddle2YCoord && ballXCoord + DIAM > paddle2XCoord) {
-				ballYSpeed *= -1;
-			}
-			
-			else {
-			ballXSpeed *= -1;
-			}
-		
-		}
+		//if ball hits paddle 1 from side, it bounces off
+				if(ballXCoord>paddle1XCoord && ballXCoord<=paddle1XCoord+PADDLE_WIDTH){
+					if(ballYCoord+DIAM>paddle1YCoord && ballYCoord<paddle1YCoord+PADDLE_HEIGHT){
+						ballXSpeed *=-1;
+					}
+				}
+				//if ball hits paddle 2 from side, it bounces off
+				if(ballXCoord+DIAM<paddle2XCoord +PADDLE_WIDTH && ballXCoord+DIAM>=paddle2XCoord){
+					if(ballYCoord+DIAM>paddle2YCoord && ballYCoord<paddle2YCoord+PADDLE_HEIGHT){
+						ballXSpeed *=-1;
+					}
+				}
 			
 	}
 
@@ -153,7 +154,6 @@ public class Pong extends JPanel implements KeyListener {
 		g.setColor(new Color(50,100,200));
 		
 		g.fillOval(ballXCoord, ballYCoord, DIAM, DIAM);
-
 		
 		// writes the score of the game - you just need to fill the scores in
 		Font f = new Font("Arial", Font.BOLD, 14);
@@ -189,8 +189,7 @@ public class Pong extends JPanel implements KeyListener {
 		if (e.getKeyChar() == '1') {
 			solo = true;
 			paddle2YSpeed = PADDLE_SPEED;
-		}
-			
+		}	
 			
 		// turn 2-player mode on
 		if (e.getKeyChar() == '2') {
@@ -282,7 +281,7 @@ public class Pong extends JPanel implements KeyListener {
 	public Pong() {
 		JFrame frame = new JFrame();
 		JButton button = new JButton("restart");
-		frame.setSize(WIDTH+15, WINDOW_HEIGHT+15);
+		frame.setSize(WIDTH+15, WINDOW_HEIGHT+10);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(this);
 		frame.add(button, BorderLayout.SOUTH);
