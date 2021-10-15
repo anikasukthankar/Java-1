@@ -46,8 +46,8 @@ public class nestedLoops{
 			
 	public void xStar(int n) {
 		   
-		for (int row = 1; row <= 1; row++){
-			for (int col = 1; col <= n; col++) {
+		for (int row = 1; row <= n; row++){
+			for (int column = 1; column <= 1; column++) {
 				System.out.println("*");
 				   
 		           {
