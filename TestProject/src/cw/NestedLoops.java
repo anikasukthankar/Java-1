@@ -13,7 +13,7 @@ public class NestedLoops{
 	
 	public void multiplicationTable() {
 		
-		for (int i = 0; i< 13; i++) {
+		for (int i = 1; i< 13; i++) {
 			for (int k = 0; k< 13; k++) {
 				System.out.println(i*k+ "");
 			}
@@ -103,9 +103,9 @@ public class NestedLoops{
 		NestedLoops runner = new NestedLoops();
 		
 		//runner.alphabet();
-		//runner.multiplicationTable();
+		runner.multiplicationTable();
 		//runner.primeNumbers(10);
 		//runner.xStar(3);
-		runner.pascalsT(4);    
+		//runner.pascalsT(4);    
 	}
 }
