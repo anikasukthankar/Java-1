@@ -83,7 +83,7 @@ public class NestedLoops{
 	
 	public void pascalsT (int n){
 		
-		//took me FOREVER but I managed to get it :)
+		//Not sure where to go from here :(
 		
 		int p = 1;
 	    System.out.print(p);
@@ -103,9 +103,9 @@ public class NestedLoops{
 		NestedLoops runner = new NestedLoops();
 		
 		//runner.alphabet();
-		runner.multiplicationTable();
+		//runner.multiplicationTable();
 		//runner.primeNumbers(10);
 		//runner.xStar(3);
-		//runner.pascalsT(4);    
+		runner.pascalsT(3);    
 	}
 }
