@@ -34,7 +34,7 @@ public class GraphicalLoops extends JPanel {
 		//tenbyTen(g);
 		//growingCircles(g);
 		//checkerBoard(g);
-		//circlesquareTriangle(g);
+		//circlesquareRoundedRect(g);
 		rectangleColors(g);
 		
 	}
@@ -106,7 +106,7 @@ public class GraphicalLoops extends JPanel {
 		}
 	}
 	
-	public void circlesquareTriangle(Graphics g) {
+	public void circlesquareRoundedRect(Graphics g) {
 		for (int i = 0; i<= num*DIAM; i+=DIAM) {
 			if ((i/DIAM) % 3 == 1) {
 				g.setColor(Color.GREEN);
