@@ -32,19 +32,23 @@ public class GraphicalLoops extends JPanel {
 		
 		//nCircles(10,g);
 		//tenbyTen(g);
+		//growingCircles(g);
 		//checkerBoard(g);
 		//circlesquareTriangle(g);
 		rectangleColors(g);
 		
 	}
 
+	//runtime: linear
 	public void nCircles(int num1, Graphics g) {
+		g.setColor(Color.red);
 		for (int i = 0; i <= (num1-1)*DIAM; i+=DIAM){
-			g.setColor(Color.red);
 			g.fillOval(i, 0 , DIAM, DIAM);
 		}
 	}
 
+	
+	//runtime: constant
 	public void tenbyTen(Graphics g) {
 		for (int i = 0; i<= 9*DIAM; i+=DIAM) {
 			for (int j = 0; j <= 9*DIAM; j+= DIAM) {
@@ -52,6 +56,22 @@ public class GraphicalLoops extends JPanel {
 				g.fillOval(i, j , DIAM, DIAM);
 			}
 		}
+	}
+	
+	//runtime: constant
+	public void growingCircles(Graphics g) {
+		g.setColor(Color.blue);
+		
+		for (int i = 0, r=3; i< 30; i++) {
+			g.fillOval(i*35, 100, r, r);
+			
+			if (i> 15)
+				r-=2;
+			
+			else
+				r+=2;
+		}
+		
 	}
 	
 	public void checkerBoard(Graphics g) {
@@ -64,9 +84,9 @@ public class GraphicalLoops extends JPanel {
 						g.fillRect(i, j , DIAM, DIAM);
 					}
 						
-						else {
-							g.setColor(Color.black);
-							g.fillRect(i, j , DIAM, DIAM);
+					else {
+						g.setColor(Color.black);
+						g.fillRect(i, j , DIAM, DIAM);
 					}
 				}
 				
@@ -109,34 +129,33 @@ public class GraphicalLoops extends JPanel {
 		
 		for (int i = 0; i<= num*DIAM; i+=DIAM) {
 				
-			if ((i/DIAM) %5 == 0) {
+			if ((i/DIAM) % 5 == 0) {
 				g.setColor(Color.red);
 						
 				}
 					
-			if ((i/DIAM) %5 == 1) {
+			if ((i/DIAM) % 5 == 1) {
 				g.setColor(Color.cyan);
 						
 				}
 					
-			if ((i/DIAM) %5 == 2) {
+			if ((i/DIAM) % 5 == 2) {
 				g.setColor(Color.pink);
 						
 				}
 					
-			if ((i/DIAM) %5 == 3) {
+			if ((i/DIAM) % 5 == 3) {
 				g.setColor(Color.green);
 						
 				}
 					
-					if ((i/DIAM) %5 == 4) {
+					if ((i/DIAM) % 5 == 4) {
 						g.setColor(Color.black);
 						
 						}
 					
 					g.fillRect(i, 0, DIAM, DIAM);
-				}
-				
+				}	
 				
 		}
 		
