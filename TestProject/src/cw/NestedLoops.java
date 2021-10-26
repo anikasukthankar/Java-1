@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class NestedLoops{
 	
+	
+	//runtime: constant
 	public void alphabet() {
 		
 		for (char i = 'A'; i<= 'Z'; ++i) {
@@ -11,6 +13,8 @@ public class NestedLoops{
 		}
 	}
 	
+	
+	//runtime: constant
 	public void multiplicationTable() {
 		
 		for (int i = 1; i< 13; i++) {
@@ -23,62 +27,51 @@ public class NestedLoops{
 		
 	}
 	
+	
+	//runtime: quadratic
 	public void primeNumbers(int n) {
 		
-		for (int i = 1; i <= n; i++) {
-		
-			boolean divisor = false;
+		for (int j = 2; j<= n; j++) {
 			
-			for (int factor = 2; factor <= i/2; factor++){
-				
-				if(i%factor==0){
+			boolean divisor = false;
+			for (int i = 2; i < j; i++) {
+		
+			if (j % i == 0) {
                 divisor = true;
                 break;
-            }
-        }
-			if (!divisor) {
-				System.out.println(i++);
+            	}
+        
 			}
+		
+			if (!divisor) {
+				System.out.println(j + "is prime");
+				}
 	
+			}
+		
 		}
-		
-	}
 			
-	public void xStar(int n) {
-	
-		//is there any way to simplify this? it took me a really long time to write!
+
+	//runtime: quadratic
+	public void xStar (int n) {
 		
-		for(int s=n;s>=1;s--)
-	     {
-	         for(int h=s;h<n;h++)
-	         {
-	             System.out.print(" ");
-	         }
-	         for(int h=1;h<=(2*s-1);h++)
-	         {
-	 if(h==1 || h==(2*s-1))
-	             System.out.print("*");
-	 else
-	          System.out.print(" ");
-	         }
-	         System.out.println("");
-	     } 
-	 for(int s=2;s<=n;s++)
-	     {
-	         for(int h=s;h<n;h++)
-	         {
-	             System.out.print(" ");
-	         }
-	         for(int h=1;h<=(2*s-1);h++)
-	         {
-	 if(h==1 || h==(2*s-1))
-	             System.out.print("*");
-	 else
-	          System.out.print(" ");
-	         }
-	         System.out.println("");
-	     }                   
-	    
+		for (int i = 0; i < n; i++) {
+			
+			for (int j = 0 ; j< n; j++) {
+				
+				if (i == j) 
+					System.out.print("*");
+				
+				else if (i + j == n-1)
+					System.out.print("*");
+				
+				else 
+					System.out.print(" ");
+			}
+			
+			System.out.println();
+		}	
+		
 	}
 	
 	public void pascalsT (int n){
@@ -104,8 +97,8 @@ public class NestedLoops{
 		
 		//runner.alphabet();
 		//runner.multiplicationTable();
-		//runner.primeNumbers(10);
-		//runner.xStar(3);
-		runner.pascalsT(3);    
+		runner.primeNumbers(10);
+		//runner.xStar(5);
+		//runner.pascalsT(3);    
 	}
 }
