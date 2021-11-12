@@ -1,0 +1,99 @@
+package homework;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Scanner;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class StartingwithArrays extends JPanel {
+	
+
+	private Scanner input = new Scanner(System.in);
+	
+	
+	public void display(int[] display) {
+		
+		for (int i =0; i < display.length; i++) {
+			
+			System.out.print(display[i]+",");
+			
+		}
+		
+	}
+	
+	public void oneToN(int n) {
+		
+		int onetoN [] = new int[n];
+		
+		for (int i = 0; i < n; i++) {
+			
+			onetoN[i]= i+1;
+			
+		}
+		
+		display(onetoN);
+		
+	}
+	
+	public void swap(int [] swap) {
+		
+		int temp;
+		
+		temp = swap[0];
+		swap[0]= swap[swap.length-1] ;
+		swap[swap.length-1] = temp; 
+		
+		display(swap);
+	
+	}
+	
+	public void userArray(int n) {
+		
+		int userArray[] = new int[n];
+		
+		System.out.println("Enter " + n + " numbers");
+		
+		for (int i =0; i< n; i++) {
+			
+			userArray[i] = input.nextInt();
+			
+		}
+		
+		display(userArray);
+		
+	}
+	
+	
+	public void reverse(int[] array) {
+		
+		int reverse[] = new int[array.length];
+		int j = 0;
+		
+		for (int i = array.length - 1; i >= 0; i--) {
+			
+			reverse[j] = array[i];
+			j++;
+			
+		}
+		
+		display(reverse);
+		
+	}
+
+	
+	public static void main(String[] args) {
+		StartingwithArrays runner = new StartingwithArrays();
+		
+		int elements[]= {1, 2, 3, 4, 5, 6, 7}; 
+		
+		runner.display(elements);
+		//runner.oneToN(30);
+		//runner.swap(elements);
+		//runner.userArray(3);
+		//runner.reverse(elements);
+		
+	
+  }
+	
+}
