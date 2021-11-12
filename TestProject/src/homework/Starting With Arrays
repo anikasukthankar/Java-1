@@ -2,7 +2,7 @@ package homework;
 
 import java.util.Scanner;
 
-public class StartingwithArrays extends JPanel {
+public class StartingwithArrays {
 	
 	private Scanner input = new Scanner(System.in);
 	
