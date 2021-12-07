@@ -1,0 +1,355 @@
+package projects;
+
+// Filler code for Whack a Mole by Mr. Friedman
+
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.Timer;
+
+public class WhackAMole {
+
+	// size of the display area
+    private int windowWidth = 800, windowHeight = 600, textHeight = 35; 
+    
+    private Image moleImg, bgImg, dirtImg, pikaImg, memeImg;
+
+    // constants for the number of moles, number of moles appearing at a time, and the 
+    // time gap between new moles popping up (in milliseconds)
+    private final int NUMMOLES = 10, NUMAPPEARING = 5, TIMESTEP = 2000;
+    
+    private int[] x, y;			// locations of the moles
+    private boolean[] showing;	// keeps track of which moles are popped up
+    
+    //score of player
+    
+    private int score;
+    
+    //dirt x and y sizes
+    
+    private int dirtWidth = 100;
+    private int dirtHeight = 50;
+    
+    //mole x and y sizes
+    
+    private int moleWidth = 100;
+    private int moleHeight = 100;
+    
+    // pikachu image x and y sizes
+    
+    private int pikax=0;
+    private int pikay=0;
+    
+    
+    //pikascore: clicking on pikachu image will give you "_" number of points
+    
+    private int pikascore=10;
+    
+    // pikafail: checks to see if score goes up to pikafailLimit without clicking on pikachu
+    
+    //pikafailLimit: sets the fail limit after pikachu respawns
+    //pikarespawn: sets the score after which pikachu respawns
+    private int pikafailLimit=9;
+    private int pikarespawn=30;
+    private boolean pikafail=false;
+    
+    // showpika: checks whether to show pikachu image 
+    private boolean showpika=false;
+    
+    public void setup() {
+    	
+    	// loads my images, which will be called later in the code
+		
+    	moleImg = Toolkit.getDefaultToolkit().getImage("diglett.png");
+		bgImg = Toolkit.getDefaultToolkit().getImage("background.jpg");
+		dirtImg = Toolkit.getDefaultToolkit().getImage("dirt.png");
+		
+		pikaImg = Toolkit.getDefaultToolkit().getImage("pikachu.png");
+		memeImg= Toolkit.getDefaultToolkit().getImage("memebg.jpg");
+		
+		// makes an array for the mole's x and y coordinates
+		
+		x = new int[NUMMOLES];
+		y = new int[NUMMOLES];
+		
+		// keeps track of which moles pop up 
+		
+		showing = new boolean[NUMMOLES];
+	
+		//sets the mole location to a random value within the bounds of the screen
+		
+		for (int i = 0; i < NUMMOLES; i++) {
+        	
+        	x[i] = (int)(Math.random() * (windowWidth - moleWidth)) ;
+        	y[i] = (int)(Math.random() * (windowHeight - moleHeight));
+  
+        }
+	
+    }
+
+    public void draw(Graphics g) {
+    	
+    	// draws the background image at 0,0 with a size that will cover the display window
+    	
+    	// must check for pikafail before creating background, moles, and dirt mounds
+    	//score % pikarespawn = number of points after spawn => if it hits limit, pika
+    	// score > pikarespawn => checks if after pikachu has spawned
+    	if ((score%pikarespawn==pikafailLimit && score>pikarespawn)){
+    		
+    		//sets pikafail = true
+    		pikafail=true;
+    	}
+    	
+    	//ends game and your score resets to 0 (meme image pops up)
+    	
+    	if (pikafail) {
+    		
+    		g.drawImage(memeImg, 0, 0, windowWidth, windowHeight, null);
+    		
+    	}
+    	
+    	//else, background image is drawn 
+    	
+    	else {
+    		
+    		g.drawImage(bgImg, 0, 0, windowWidth, windowHeight, null);
+    	
+        
+    	// if moles are not showing, draw dirt mounds
+    	//else, draw mole images
+    	
+    	for (int i = 0; i < NUMMOLES; i++) {
+        	
+        	if (!showing[i]) {
+            	
+        		g.drawImage(dirtImg, x[i], y[i], dirtWidth, dirtHeight, null);
+            	
+            }
+        	
+        	
+        	else {
+        		
+        		g.drawImage(moleImg, x[i], y[i]- moleHeight/2, moleWidth, moleHeight, null);
+        		
+        	}
+        	
+        	
+        }
+        
+        //if score is divisible by pikarespawn, then pikachu image respawns 
+    	// Showpika is set equal to true  
+    	
+    	if (score % pikarespawn == 0 && score!=0) {
+        	
+        	showpika=true;
+        }
+        
+    	// Spawns pikachu at random location every timestep 
+    	
+        if(showpika && score!=0) {
+        	
+        	pikax=(int)(Math.random() * (windowWidth - moleWidth));
+        	
+        	pikay=(int)(Math.random() * (windowHeight - moleHeight));
+    		
+        	g.drawImage(pikaImg, pikax, pikay, moleWidth, moleHeight, null);
+    		
+        	}
+    	
+    	}
+           
+    }
+
+
+    // what you want to happen when the mouse is clicked
+    public void click(int mouseX, int mouseY) {
+    	
+    	for (int i=0; i<NUMMOLES; i++) {
+    		
+    		if (showing[i] && mouseX > x[i] && mouseX < x[i]+ moleWidth) {
+    			
+    			if (mouseY > y[i]-moleHeight/2 && mouseY < y[i] + moleHeight/2) {
+    				
+    				score++;
+    				showing[i] = false;
+    				break;
+    	
+    			}
+    				
+    		}	
+    		
+    	}
+    
+    	
+    	//checks if pikachu has been clicked; sets showpika equal to false & adds pikascore to score
+    	
+    	if( mouseX > pikax && mouseX < pikax+ moleWidth) {
+    		
+    		if (mouseY > pikay-moleHeight/2 && mouseY < pikay + moleHeight/2) {
+    			
+    			score+=pikascore;
+    			
+    			showpika=false;
+    		
+    		}
+    	
+      }
+ 
+    }
+    
+    // what you want to happen when the time for the current round ends
+    public void timeAdvance() {
+    	
+    	//sets array to false
+    	showing = new boolean[NUMMOLES];
+    	
+    	for (int i = 0; i < NUMAPPEARING; i++) {
+    		
+    		//random number between 0 and number of moles
+    		int randnum = (int)(Math.random()*NUMMOLES);
+    		
+    		//if random mole is showing, repeat loop by decrease i 
+    		if (showing[randnum]) {
+    		
+    			i--;
+    			continue;
+    			
+    		}
+    		
+    		//sets showing to True;
+    		else {
+    			
+    			showing[randnum] = true;
+    			
+    		}
+    	
+    	}
+    	
+    }
+
+    
+    // resets the game
+    public void reset() {
+    	
+    	score = 0;
+    	pikafail=false;
+    	showpika=false;
+    	setup();
+    	
+    }
+
+
+    // DO NOT TOUCH BELOW CODE //
+
+    public WhackAMole() {
+    	
+    	setup();
+
+        JFrame window = new JFrame();
+        window.setTitle("Whack A Mole");
+        window.setSize(windowWidth, windowHeight + textHeight);
+        window.setLocationRelativeTo(null);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+
+        JTextArea scoreDisplay = new JTextArea();
+        scoreDisplay.setEditable(false);
+        scoreDisplay.setText("\t\tScore: 0");
+        
+        JButton resetButton = new JButton("Reset");
+        resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				reset();
+				window.getContentPane().repaint();
+			}
+        });
+        
+        JPanel topPanel = new JPanel();
+        topPanel.setPreferredSize(new Dimension(windowWidth, textHeight));
+        topPanel.add(resetButton);
+        scoreDisplay.setBackground(topPanel.getBackground());
+        
+        topPanel.add(scoreDisplay);
+
+        
+
+        JPanel canvas = new JPanel() {
+            public void paint(Graphics g) {
+                draw(g);
+                scoreDisplay.setText("\t\tScore: " + score);
+            }
+        };
+        canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
+
+        canvas.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                click(e.getX(), e.getY());
+                scoreDisplay.setText("\t\tScore: " + score);
+                window.getContentPane().repaint();
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        
+        window.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent componentEvent) {
+                windowWidth = window.getWidth();
+                windowHeight = window.getHeight() - textHeight;
+                topPanel.setPreferredSize(new Dimension(windowWidth, textHeight));
+                canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
+            }
+        });
+
+        container.add(topPanel);
+        container.add(canvas);
+        window.add(container);
+        window.setVisible(true);
+        canvas.revalidate();
+        window.getContentPane().repaint();
+        
+        new Timer(TIMESTEP, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+            	timeAdvance();
+            	window.getContentPane().repaint();
+            }
+        }).start();
+    
+}
+    
+    
+
+    public static void main(String[] args) {
+        new WhackAMole();
+    }
+
+}
