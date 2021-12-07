@@ -1,0 +1,100 @@
+package homework;
+
+public class FinalArrayProblems {
+	
+		public static void indexSum (double[] arr) {
+			
+			double sum=0;
+			
+			for(int i=0;i<arr.length;i++) {
+				
+				sum+= (double)(i)*arr[i];
+			
+			}
+			
+			System.out.println(sum);
+		}
+		
+		public static void lowerCase(char[] arr) {
+			
+			String s="";
+			
+			for(int i=0;i<arr.length;i++) {
+				
+				if(Character.isLowerCase(arr[i])) {
+					
+					s+=arr[i];
+				}
+			}
+			
+			System.out.println(s);
+		}
+	
+		public static void mostChar(char[] arr) {
+			
+			int count = 0;
+			
+			int maxcount = 0;
+			
+			char maxchar = ' ';
+			
+			for(int i = 0; i < arr.length; i++) {
+				
+				count = 0;
+			   
+				for(int j = 0; j < arr.length; j++) {
+			    	
+					if(arr[i] == arr[j]) {
+			    		
+						count++;
+			    	}
+			   }
+			   
+				if(maxcount < count) {
+				   
+					maxcount = count;
+					
+					maxchar = arr[i];
+			   
+				}
+			}
+			
+			System.out.println(maxchar);
+		}
+		public static void sumInArray(int[] arr,int n) {
+			
+			boolean e=false;
+			
+			for(int i=0;i<arr.length;i++) {
+				
+				for(int j=0;j<arr.length;j++) {
+					
+					if(arr[i]+arr[j]==n) {
+						
+						e=true;
+					}
+				
+				}	
+			
+			}
+			
+			if(e) {
+				System.out.println("yes");
+			}
+			
+			else {
+				
+				System.out.println("no");
+			}
+		}
+			
+		public static void main(String[] args) {
+			
+			//mostChar(new char[]{ 'd', 'c', 'o', 'a','d'});
+			//indexSum(new double[] {5.8, 3.1, 2.5});
+			//lowerCase(new char[] {'A','s','Z','j','a','n','i','q','u','a'});
+			//sumInArray(new int[]{1,5,7,3},9);
+		}
+		
+}
+		
