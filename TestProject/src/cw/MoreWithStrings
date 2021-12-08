@@ -1,0 +1,59 @@
+package cw;
+
+import java.util.Arrays;
+
+public class MoreWithStrings{
+	 
+	public static void twoLetters(String s) {
+		
+		System.out.println(s.substring(0, 2).equals(s.substring(s.length()-2)));
+			
+		}
+	
+	public static void containedString(String str1, String str2) {
+		
+		for (int i = 0; i < str2.length() ; i++) {
+			
+			System.out.println(str1.contains(str2.charAt(i)+""));
+			
+		}
+		
+	}
+		
+	
+	public static void wordsString (String s) {
+		
+		System.out.println(s.split(" ").length);
+		
+	}
+	
+	
+	public static void stringArray(String s) {
+		
+		System.out.println(Arrays.toString(s.split(" ")));
+		
+	}
+	
+	public static void eString (String s) {
+		
+		if (s.contains("e")) {
+			
+			s = s.replace("e","");
+			System.out.println(s);
+			
+		}
+		
+	}
+	
+
+	public static void main(String[] args) {
+		
+		//twoLetters("edited");
+		//containedString("Hello world", "leg");
+		//wordsString("I love you");
+		//stringArray("AP CS is for nerds");
+		//eString("let's eat there");
+		
+	}
+	
+}
