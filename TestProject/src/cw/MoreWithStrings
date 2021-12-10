@@ -35,13 +35,10 @@ public class MoreWithStrings{
 	}
 	
 	public static void eString (String s) {
-		
-		if (s.contains("e")) {
 			
 			s = s.replace("e","");
 			System.out.println(s);
-			
-		}
+		
 		
 	}
 	
