@@ -1,6 +1,11 @@
-package projects;
 
-// Filler code for Whack a Mole by Mr. Friedman
+//Anika Sukthankar
+//December 9th, 2021
+//Blue Block (Java I)
+//Mr. Friedman
+
+
+package projects;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,6 +17,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -26,95 +32,92 @@ public class WhackAMole {
 	// size of the display area
     private int windowWidth = 800, windowHeight = 600, textHeight = 35; 
     
+    // images being used in code (background, mole, dirt, pikachu, and meme)
     private Image moleImg, bgImg, dirtImg, pikaImg, memeImg;
 
     // constants for the number of moles, number of moles appearing at a time, and the 
     // time gap between new moles popping up (in milliseconds)
     private final int NUMMOLES = 10, NUMAPPEARING = 5, TIMESTEP = 2000;
     
-    private int[] x, y;			// locations of the moles
-    private boolean[] showing;	// keeps track of which moles are popped up
+    private int[] x, y;						// locations of the moles
+    private boolean[] showing;				// keeps track of which moles are popped up
     
-    //score of player
+    private int score;						// score of player
     
-    private int score;
-    
-    //dirt x and y sizes
-    
-    private int dirtWidth = 100;
+    private int dirtWidth = 100;			// dirt x and y sizes
     private int dirtHeight = 50;
     
-    //mole x and y sizes
-    
-    private int moleWidth = 100;
+    private int moleWidth = 100;			// mole x and y sizes
     private int moleHeight = 100;
-    
-    // pikachu image x and y sizes
-    
+
     private int pikax=0;
-    private int pikay=0;
+    private int pikay=0;					// pikachu image x and y sizes
     
     
-    //pikascore: clicking on pikachu image will give you "_" number of points
+    private int pikascore=5;				// pikascore: clicking on pikachu image will give you "_" number of points
     
-    private int pikascore=10;
     
-    // pikafail: checks to see if score goes up to pikafailLimit without clicking on pikachu
+    private int pikafailLimit = 3;			// sets the fail limit after pikachu respawns
+    										// make sure pikascore and pikarespawn are not the same number (pikachu will show up forever) 
+    										// make sure that pikarespawn > pikafailLimit (otherwise pikafailLimit will never be reached) 
     
-    //pikafailLimit: sets the fail limit after pikachu respawns
-    //pikarespawn: sets the score after which pikachu respawns
-    private int pikafailLimit=9;
-    private int pikarespawn=30;
-    private boolean pikafail=false;
+  
+    private int max =6;						// max value that pikarespawn will be set to (number is randomized)
     
-    // showpika: checks whether to show pikachu image 
-    private boolean showpika=false;
+    private int pikarespawn;				// sets the score at which pikachu respawns
+    
+    private boolean pikafail=false;			// checks to see if score goes up to pikafailLimit without clicking on pikachu
+    
+    private boolean showpika=false;			// checks whether to show pikachu image 
+    
+    private int click = 0;					// keeps track of # of times user has clicked
     
     public void setup() {
     	
     	// loads my images, which will be called later in the code
-		
+    	
     	moleImg = Toolkit.getDefaultToolkit().getImage("diglett.png");
 		bgImg = Toolkit.getDefaultToolkit().getImage("background.jpg");
 		dirtImg = Toolkit.getDefaultToolkit().getImage("dirt.png");
 		
 		pikaImg = Toolkit.getDefaultToolkit().getImage("pikachu.png");
 		memeImg= Toolkit.getDefaultToolkit().getImage("memebg.jpg");
+	
 		
-		// makes an array for the mole's x and y coordinates
-		
-		x = new int[NUMMOLES];
+		x = new int[NUMMOLES];				// makes an array for the mole's x and y coordinates
 		y = new int[NUMMOLES];
+		
 		
 		// keeps track of which moles pop up 
 		
 		showing = new boolean[NUMMOLES];
-	
+			
 		//sets the mole location to a random value within the bounds of the screen
-		
+				
 		for (int i = 0; i < NUMMOLES; i++) {
-        	
+		        	
         	x[i] = (int)(Math.random() * (windowWidth - moleWidth)) ;
         	y[i] = (int)(Math.random() * (windowHeight - moleHeight));
   
         }
+
+		
+		
+		// Sets pikarespawn to a random number between max and pikascore+1(because pikarespawn should be greater than pikascore)
+		
+		pikarespawn=(int)(Math.random()*max)+pikascore+1;
+		System.out.println(pikarespawn);
+		
+		
 	
     }
 
     public void draw(Graphics g) {
+    
+    	// you must first check for pikafail before creating background, moles, and dirt mounds
+
     	
-    	// draws the background image at 0,0 with a size that will cover the display window
-    	
-    	// must check for pikafail before creating background, moles, and dirt mounds
-    	//score % pikarespawn = number of points after spawn => if it hits limit, pika
-    	// score > pikarespawn => checks if after pikachu has spawned
-    	if ((score%pikarespawn==pikafailLimit && score>pikarespawn)){
-    		
-    		//sets pikafail = true
-    		pikafail=true;
-    	}
-    	
-    	//ends game and your score resets to 0 (meme image pops up)
+    	//ends game which resets score to 0 and draws the meme image at 0,0 with a size that covers the display window
     	
     	if (pikafail) {
     		
@@ -122,7 +125,7 @@ public class WhackAMole {
     		
     	}
     	
-    	//else, background image is drawn 
+    	//else, draws the background image at 0,0 with a size that will cover the display window
     	
     	else {
     		
@@ -156,6 +159,8 @@ public class WhackAMole {
     	if (score % pikarespawn == 0 && score!=0) {
         	
         	showpika=true;
+        	
+        	click = 0;
         }
         
     	// Spawns pikachu at random location every timestep 
@@ -178,6 +183,13 @@ public class WhackAMole {
     // what you want to happen when the mouse is clicked
     public void click(int mouseX, int mouseY) {
     	
+    	click++;					// when user clicks, function is called and number of clicks is kept track of & increases
+    	
+    
+    	
+    // checks to see if player clicks in "square" (area) of a diglett
+    //if player has clicked on diglett, the score increases by 1 point, the mole disappears, and loops ends there and returns back to the first statement
+    	
     	for (int i=0; i<NUMMOLES; i++) {
     		
     		if (showing[i] && mouseX > x[i] && mouseX < x[i]+ moleWidth) {
@@ -197,7 +209,7 @@ public class WhackAMole {
     	
     	//checks if pikachu has been clicked; sets showpika equal to false & adds pikascore to score
     	
-    	if( mouseX > pikax && mouseX < pikax+ moleWidth) {
+    	if( mouseX > pikax && mouseX < pikax+ moleWidth && showpika) {
     		
     		if (mouseY > pikay-moleHeight/2 && mouseY < pikay + moleHeight/2) {
     			
@@ -206,8 +218,16 @@ public class WhackAMole {
     			showpika=false;
     		
     		}
+    	}
     	
-      }
+    	// checks if pika image is showing & if # of clicks > pikafailLimit (must be able to click more times than fail limit)
+    	
+    	if (click > pikafailLimit && showpika) {
+    		
+    		pikafail = true;
+    		
+    		
+    	}
  
     }
     
@@ -222,7 +242,7 @@ public class WhackAMole {
     		//random number between 0 and number of moles
     		int randnum = (int)(Math.random()*NUMMOLES);
     		
-    		//if random mole is showing, repeat loop by decrease i 
+    		//if random mole is already showing, repeat loop by decreasing i and continuing
     		if (showing[randnum]) {
     		
     			i--;
@@ -230,7 +250,7 @@ public class WhackAMole {
     			
     		}
     		
-    		//sets showing to True;
+    		//otherwise, set showing to True;
     		else {
     			
     			showing[randnum] = true;
