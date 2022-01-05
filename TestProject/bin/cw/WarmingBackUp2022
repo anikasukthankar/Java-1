@@ -1,0 +1,85 @@
+package cw;
+
+public class WarmingBackUp2022 {
+	
+	public static boolean alphabeticalOrder (String str) {
+		
+		for (int i = 1; i < str.length(); i++) {
+	 
+	         if (str.charAt(i) < str.charAt(i - 1)) {
+	        	 return false;
+	            
+	         }  
+	     
+	      }
+	 
+	        return true;
+	 }
+	
+	
+	public static String highestGrade(String[]names, int[] grades) {
+		
+		int maxI = 0;
+		
+		for (int i = 0; i<names.length; i++) {
+			
+			if (grades[maxI] > grades[i]) {
+				
+				maxI = i;
+				
+			}
+			
+		}
+		
+		return names[maxI];
+		
+	}
+	
+	//linear runtime
+	public static int[] squares(int n) {
+		
+		int [] psquares = new int[n];
+		
+		for (int i = 0, j = 1; i < psquares.length;i++ , j+=2) {
+			
+			psquares[i] = j*j;
+			
+			}
+			
+		return psquares;
+		
+	}
+	
+	public static String every3(String str) {
+		
+		String str2 = "";
+		
+		for (int i = 0; i< str.length(); i+=3) {
+			
+			if (i % 2 == 0) {
+				
+				str2 += str.substring(i, i+3);
+			}
+			
+		}
+		
+		if (str.length() % 6 < 3) 
+			
+			str2 += str.substring(str.length()-str.length()%6);
+		
+		
+		return str2;
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		//alphabeticalOrder("nego");
+		//highestGrade();
+		//squares(3);
+		every3("abcdefghijklm");
+		
+	}
+
+	
+}
