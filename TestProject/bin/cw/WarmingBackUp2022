@@ -1,5 +1,7 @@
 package cw;
 
+import java.util.Arrays;
+
 public class WarmingBackUp2022 {
 	
 	public static boolean alphabeticalOrder (String str) {
@@ -19,19 +21,19 @@ public class WarmingBackUp2022 {
 	
 	public static String highestGrade(String[]names, int[] grades) {
 		
-		int maxI = 0;
+		int max = 0;
 		
-		for (int i = 0; i<names.length; i++) {
+		for (int i = 0; i < names.length; i++) {
 			
-			if (grades[maxI] > grades[i]) {
+			if (grades[max] > grades[i]) {
 				
-				maxI = i;
+				max = i;
 				
 			}
 			
 		}
 		
-		return names[maxI];
+		return names[max];
 		
 	}
 	
@@ -65,7 +67,7 @@ public class WarmingBackUp2022 {
 		
 		if (str.length() % 6 < 3) 
 			
-			str2 += str.substring(str.length()-str.length()%6);
+			str2 += str.substring(str.length()-str.length() % 6);
 		
 		
 		return str2;
@@ -74,12 +76,13 @@ public class WarmingBackUp2022 {
 	
 	public static void main(String[] args) {
 		
-		//alphabeticalOrder("nego");
-		//highestGrade();
-		//squares(3);
-		every3("abcdefghijklm");
+		//System.out.println(alphabeticalOrder("abc"));
+		System.out.println(highestGrade(new String[] {"uh", "Anika", "Giraffe"}, new int[] {2, 4, 3}));
+		//System.out.println(Arrays.toString(squares(3)));
+		//System.out.println(every3("abcdefghijklm"));
 		
 	}
-
+	
+	
 	
 }
