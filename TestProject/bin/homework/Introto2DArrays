@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class Intro2DArrays {
 	
 	//int[ ][ ] arr1 = { {6, 8, 3, 4},	
-						//{7, 6}
-						//{3, 1} };
+				//{7, 6}
+				//{3, 1} };
 
 	//char[ ][ ] arr2 = { {'c', 'k'}, 
 						//{'j', 'h', 'b'} };
