@@ -1,0 +1,81 @@
+package cw;
+
+import java.util.Arrays;
+
+public class Intro2DArrays {
+	
+	//int[ ][ ] arr1 = { {6, 8, 3, 4},	
+						//{7, 6}
+						//{3, 1} };
+
+	//char[ ][ ] arr2 = { {'c', 'k'}, 
+						//{'j', 'h', 'b'} };
+
+		 
+
+	//A. arr1[0][0];  => 6              
+	
+	//B. arr1[2][1]; => 1              
+	
+	//C. arr1[1][2]; => out of bounds               
+	
+	//D. arr1[0][2]; => 3
+		       
+	//E. arr2[0][1]; => k
+	
+	//F. arr2[2][1]; => out of bounds
+	
+	//G. (int)(arr2[0][0] + arr1[1][1]); => c + 6
+
+	//H. (char)(arr2[1][1] + arr1[2][0]); => h + 3;                  
+	
+	//I. arr1[1]; => {7, 6}
+	
+	public static void nSquare(int n) {
+		
+		int[][] arr = new int[n][n];
+		
+		for (int i = 0; i< n; i++) {
+			
+			for (int j = 0; j< n; j++) {
+				
+				arr[i][j] = (i*n) + j;
+				
+			}
+			
+		}
+		
+		for (int[] rows: arr) {
+			
+			System.out.println(Arrays.toString(rows));
+		}
+		
+	}
+	
+	
+	public static void columnsRows (String[][] arr) {
+		
+		System.out.println(arr[0].length + "" + arr.length);
+		 
+	 }
+	
+	public static void sixintegers(int num1, int num2, int num3, int num4, int num5, int num6) {
+		
+		int [] [] arr = {{num1}, {num2, num3}, {num4, num5, num6}};
+		
+		for (int[] rows: arr) {
+			
+			System.out.println(Arrays.toString(rows));
+			
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		sixintegers(2, 4, 6, 8, 10, 12);
+		
+	}
+
+	
+}
