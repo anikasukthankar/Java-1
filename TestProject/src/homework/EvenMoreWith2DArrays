@@ -1,0 +1,155 @@
+package homework;
+
+import java.util.Arrays;
+
+public class EvenMoreWith2DArrays {
+
+		
+//Easy: Write a method that takes a 2d array of characters as parameter. 
+	//Create a string built out of these characters.
+
+    public static void combineArray(char [][]arr) {
+    	
+    	String str = "";
+    	
+    	for (int i = 0; i< arr.length; i++) {
+    		
+    		for (int j = 0; j< arr[i].length; j++) {
+    			
+    			str += arr[i][j];
+    		
+    		}
+    	
+    	}	
+    	
+    	System.out.println(str);		
+    }
+ 
+
+//Easy: Write a method that takes an integer n as parameter. 
+    // Create a square 2d array of size nxn. Fill in the diagonals of this square matrix with n's. 
+    
+    public static void nxnSquare (int n) {
+    	
+    	int[][] arr = new int[n][n]; 
+    	
+    	for (int i = 0; i< arr.length; i++) {
+    		
+    		arr[i][i] = n;
+    		arr[i][n-i-1] = n;
+    		
+    	}
+    	
+    	for (int[] row: arr) {
+    		
+    		System.out.println(Arrays.toString(row));
+    	}
+    	
+    }
+
+//Medium: Write a method that takes an integer n as parameter. 
+    //Create a 2d array holding an nxn triangle of consecutive numbers starting at 1.
+
+    //for example: n = 4 ->  {{1},{2,3},{4,5,6},{7,8,9,10}}
+    
+   public static void nxnTriangle(int n) {
+	   
+	   int[][] arr = new int [n][]; 
+	   int num = 0;
+	   
+	   for (int i= 0; i< n; i++) {
+		 
+		   arr[i] = new int[i+1];
+		   
+		   for (int j = 0; j < i+1; j++) {
+			   
+			   num++;
+			   arr[i][j] = num;
+			   
+		   }
+		   
+	   }
+	   
+	   for (int[] row: arr) {
+		   
+		   System.out.println(Arrays.toString(row));
+		   
+	   }
+	   
+	   
+   }
+
+//Medium: Write a method that takes a 2d array of integers as parameter. 
+   //Create a 2d array that contains the same number of rows, 
+   //but twice as many columns, alternating 0's and elements from the parameter array.
+
+    public static void twicezero(int [][] arr) {
+    	
+    	int[][] arr2 = new int[arr.length][arr[0].length*2];
+    			
+    	for (int i = 0; i < arr.length; i++) {
+    		
+    		for (int j = 0; j < arr[0].length*2; j++) {
+    			
+    			if (j % 2 == 0) {
+    				
+    				arr2[i][j] = arr[i][j/2];
+    				
+    			}
+    			
+    			else {
+    				
+    				arr2[i][j] = 0;
+    				
+    			}
+    			
+    		}
+    	}
+    	
+    	for (int[] row: arr2) {
+			
+    		System.out.println(Arrays.toString(row));
+			
+    	}
+    		
+    }
+
+//Medium: Write a method that takes a 2d array of doubles as parameter. 
+    //Your method should reverse each row in the array. 
+    
+    public static void reverseRow(double[][] arr)  {
+    	
+    	for (int i = 0; i < arr.length; i++) {
+			
+    		double[] rev = new double[arr[i].length];
+			
+    		for(int j = 0; j < arr[i].length; j++) {
+				
+    			rev[j] = arr[i][arr[i].length-1-j];
+			
+    		}
+			
+    		arr[i] = rev;
+	}
+	
+    	for (double[] row: arr) {
+		
+    		System.out.println(Arrays.toString(row));
+    		
+    	}
+    }
+    
+		
+    public static void main(String[] args) {
+			
+    	//combineArray(new char [][] { { 'h', 'e', 'l'}, {'l', 'o'} });
+		//nxnSquare(3);
+		//nxnTriangle(3);
+		twicezero(new int [][] { { 1, 2, 3}, {4, 5, 6} });
+		//reverseRow(new double[][]{ {1.0, 3.0, 5.0}, {9.0, 7.0, 6.0} });
+		
+	}
+			
+}
+		
+		
